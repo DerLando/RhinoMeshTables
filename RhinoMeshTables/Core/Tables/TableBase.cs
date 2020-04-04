@@ -2,6 +2,5 @@
 {
     public abstract class TableBase
     {
-        public abstract int Count();
     }
 }

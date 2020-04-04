@@ -6,7 +6,7 @@ using RhinoMeshTables.Core.Tables;
 namespace MeshTables.Tests
 {
     [TestClass]
-    public class FaceTests
+    public class FaceVertexTests
     {
         [TestMethod]
         public void TestFaceVertexTableCreate()
@@ -18,7 +18,8 @@ namespace MeshTables.Tests
             var fvTable = TableFactory.CreateFaceVertexTable(testMesh);
 
             // Assert
-            Assert.AreEqual(fvTable.Count(), testMesh.Faces.Count);
+            Assert.AreEqual(fvTable.FaceCount, testMesh.Faces.Count);
+            Assert.AreEqual(fvTable.VertexCount, testMesh.Vertices.Count);
         }
     }
 }

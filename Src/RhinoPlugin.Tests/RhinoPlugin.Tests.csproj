@@ -64,7 +64,6 @@
     <Compile Include="FaceTests.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="TestInit.cs" />
-    <Compile Include="ExampleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
