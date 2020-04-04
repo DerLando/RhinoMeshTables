@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,6 +54,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\MeshElements\Face.cs" />
+    <Compile Include="Core\Indices\Index.cs" />
+    <Compile Include="Core\Indices\IndexType.cs" />
+    <Compile Include="Core\MeshElements\Vertex.cs" />
+    <Compile Include="Core\Tables\FaceVertexTable.cs" />
+    <Compile Include="Core\MeshElements\MeshConnectivity.cs" />
+    <Compile Include="Core\Tables\TableBase.cs" />
+    <Compile Include="Core\Tables\TableFactory.cs" />
     <Compile Include="RhinoMeshTablesCommand.cs" />
     <Compile Include="RhinoMeshTablesPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,8 +78,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).rhp"
-Erase "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).rhp"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
@@ -80,5 +88,6 @@ Erase "$(TargetPath)"</PostBuildEvent>
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
 </Project>
