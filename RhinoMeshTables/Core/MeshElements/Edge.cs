@@ -33,4 +33,21 @@ namespace RhinoMeshTables.Core.MeshElements
             VertexIndices = (from index in vertexIndices select new VertexIndex(index)).ToArray();
         }
     }
+
+    public readonly struct FaceEdge
+    {
+        public readonly FaceIndex[] FaceIndices;
+
+        public FaceEdge(FaceIndex[] faceIndices)
+        {
+            FaceIndices = faceIndices;
+        }
+
+        public FaceEdge(IEnumerable<uint> faceIndices)
+        {
+            FaceIndices = (from index in faceIndices select new FaceIndex(index)).ToArray();
+        }
+
+        public int FaceCount => FaceIndices.Length;
+    }
 }

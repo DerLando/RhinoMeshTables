@@ -45,6 +45,17 @@ namespace RhinoMeshTables.Core.Tables
             return edges;
         }
 
+        private static FaceEdge[] GetFaceEdges(Mesh mesh)
+        {
+            var edges = new FaceEdge[mesh.TopologyEdges.Count];
+            for (int i = 0; i < mesh.TopologyEdges.Count; i++)
+            {
+                edges[i] = new FaceEdge(from fIndex in mesh.TopologyEdges.GetConnectedFaces(i) select (uint) fIndex);
+            }
+
+            return edges;
+        }
+
         #endregion
 
         public static FaceVertexTable CreateFaceVertexTable(Mesh mesh)
@@ -55,6 +66,11 @@ namespace RhinoMeshTables.Core.Tables
         public static EdgeVertexTable CreateEdgeVertexTable(Mesh mesh)
         {
             return new EdgeVertexTable(GetVertexEdges(mesh), GetVertices(mesh));
+        }
+
+        public static EdgeFaceTable CreateEdgeFaceTable(Mesh mesh)
+        {
+            return new EdgeFaceTable(GetFaceEdges(mesh), GetFaces(mesh));
         }
     }
 }
