@@ -61,6 +61,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EdgeVertexTests.cs" />
     <Compile Include="FaceVertexTests.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="TestInit.cs" />

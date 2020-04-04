@@ -5,12 +5,12 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhinoMeshTables", "RhinoMeshTables\RhinoMeshTables.csproj", "{7D6475E1-3255-4182-8F36-02E8D66E8F1F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7BA61FAC-BC11-45AA-92BD-425EC3249CCE}"
-	ProjectSection(SolutionItems) = preProject
-		RhinoCommonUnitTesting\README.md = RhinoCommonUnitTesting\README.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhinoPlugin.Tests", "Src\RhinoPlugin.Tests\RhinoPlugin.Tests.csproj", "{D9CE7105-9537-4BBB-B6F0-618DD3742611}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1C7329A-4E3B-4FA6-A53F-624635AF4204}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

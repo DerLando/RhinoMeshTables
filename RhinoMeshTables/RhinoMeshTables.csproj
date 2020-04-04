@@ -54,10 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\MeshElements\Edge.cs" />
     <Compile Include="Core\MeshElements\Face.cs" />
     <Compile Include="Core\Indices\Index.cs" />
     <Compile Include="Core\Indices\IndexType.cs" />
     <Compile Include="Core\MeshElements\Vertex.cs" />
+    <Compile Include="Core\Tables\EdgeVertexTable.cs" />
     <Compile Include="Core\Tables\FaceVertexTable.cs" />
     <Compile Include="Core\MeshElements\MeshConnectivity.cs" />
     <Compile Include="Core\Tables\TableBase.cs" />

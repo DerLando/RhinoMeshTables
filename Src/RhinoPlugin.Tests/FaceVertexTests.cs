@@ -16,11 +16,11 @@ namespace MeshTables.Tests
             var testMesh = Helpers.Cube();
 
             // Act
-            var fvTable = TableFactory.CreateFaceVertexTable(testMesh);
+            var evTable = TableFactory.CreateFaceVertexTable(testMesh);
 
             // Assert
-            Assert.AreEqual(fvTable.FaceCount, testMesh.Faces.Count);
-            Assert.AreEqual(fvTable.VertexCount, testMesh.Vertices.Count);
+            Assert.AreEqual(evTable.FaceCount, testMesh.Faces.Count);
+            Assert.AreEqual(evTable.VertexCount, testMesh.TopologyVertices.Count);
         }
 
         ///test every Vertex is contained in the face the fvTable finds for it
