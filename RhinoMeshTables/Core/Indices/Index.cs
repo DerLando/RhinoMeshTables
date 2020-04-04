@@ -16,13 +16,29 @@ namespace RhinoMeshTables.Core.Indices
         }
     }
 
-    public readonly struct VertexIndex
+    public readonly struct VertexIndex : IEquatable<VertexIndex>
     {
         public readonly uint Value;
 
         public VertexIndex(uint value)
         {
             Value = value;
+        }
+
+        public bool Equals(VertexIndex other)
+        {
+            return Value == other.Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is VertexIndex other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int) Value;
         }
     }
 

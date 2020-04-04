@@ -15,5 +15,10 @@ namespace RhinoMeshTables.Core.MeshElements
         {
             Position = position;
         }
+
+        public bool EpsilonEquals(Vertex other, double epsilon)
+        {
+            return Position.DistanceToSquared(other.Position) < epsilon;
+        }
     }
 }
