@@ -10,11 +10,11 @@ namespace RhinoMeshTables.Core.Tables
 {
     public class EdgeVertexTable : TableBase
     {
-        private VertexEdge[] _edges;
+        private Edge[] _edges;
         private Vertex[] _vertices;
         private Dictionary<VertexIndex, List<EdgeIndex>> _ve_dict;
 
-        public EdgeVertexTable(VertexEdge[] edges, Vertex[] vertices)
+        public EdgeVertexTable(Edge[] edges, Vertex[] vertices)
         {
             _edges = edges;
             _vertices = vertices;
@@ -52,12 +52,12 @@ namespace RhinoMeshTables.Core.Tables
             return _ve_dict[key].ToArray();
         }
 
-        private VertexEdge[] GetEdges(VertexIndex key)
+        private Edge[] GetEdges(VertexIndex key)
         {
             return (from index in GetEdgeIndices(key) select _edges[index.Value]).ToArray();
         }
 
-        public VertexEdge[] this[VertexIndex key]
+        public Edge[] this[VertexIndex key]
         {
             get => GetEdges(key);
         }

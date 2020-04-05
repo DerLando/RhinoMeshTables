@@ -8,13 +8,16 @@ using RhinoMeshTables.Core.MeshElements;
 
 namespace RhinoMeshTables.Core.Tables
 {
+    /// <summary>
+    /// Table which can be queried for relations between edges and faces
+    /// </summary>
     public class EdgeFaceTable : TableBase
     {
-        private FaceEdge[] _edges;
+        private Edge[] _edges;
         private Face[] _faces;
         private Dictionary<FaceIndex, List<EdgeIndex>> _fe_dict;
 
-        public EdgeFaceTable(FaceEdge[] edges, Face[] faces)
+        public EdgeFaceTable(Edge[] edges, Face[] faces)
         {
             _edges = edges;
             _faces = faces;
@@ -54,12 +57,12 @@ namespace RhinoMeshTables.Core.Tables
             return _fe_dict[key].ToArray();
         }
 
-        private FaceEdge[] GetFaces(FaceIndex key)
+        private Edge[] GetFaces(FaceIndex key)
         {
             return (from index in GetFaceIndices(key) select _edges[index.Value]).ToArray();
         }
 
-        public FaceEdge[] this[FaceIndex key]
+        public Edge[] this[FaceIndex key]
         {
             get => GetFaces(key);
         }
