@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using RhinoMeshTables.Core.Indices;
 using RhinoMeshTables.Core.MeshElements;
 
@@ -17,7 +18,7 @@ namespace RhinoMeshTables.Core.Tables
 
         #region Vertex getters
 
-        private VertexIndex[] GetVertexIndices(FaceIndex key)
+        public VertexIndex[] GetVertexIndices(FaceIndex key)
         {
             return _faces[key.Value].VertexIndices;
         }
@@ -35,6 +36,18 @@ namespace RhinoMeshTables.Core.Tables
         #endregion
 
         #region Face getters
+
+        public FaceIndex[] GetFaceIndices(VertexIndex key)
+        {
+            var indices = new List<FaceIndex>();
+            for (int i = 0; i < _faces.Length; i++)
+            {
+                if (!_faces[i].VertexIndices.Contains(key)) continue;
+                indices.Add(new FaceIndex((uint)i));
+            }
+
+            return indices.ToArray();
+        }
 
         private Face[] GetFaces(VertexIndex key)
         {
