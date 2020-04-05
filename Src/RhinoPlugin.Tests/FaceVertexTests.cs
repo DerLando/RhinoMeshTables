@@ -19,8 +19,8 @@ namespace MeshTables.Tests
             var evTable = TableFactory.CreateFaceVertexTable(testMesh);
 
             // Assert
-            Assert.AreEqual(evTable.FaceCount, testMesh.Faces.Count);
-            Assert.AreEqual(evTable.VertexCount, testMesh.TopologyVertices.Count);
+            Assert.AreEqual(6, evTable.FaceCount);
+            Assert.AreEqual(8, evTable.VertexCount);
         }
 
         ///test every Vertex is contained in the face the fvTable finds for it
@@ -42,6 +42,20 @@ namespace MeshTables.Tests
                     Assert.IsTrue(Array.Exists(face.VertexIndices, v => v.Equals(index)));
                 }
             }
+        }
+
+        [TestMethod]
+        public void TestNgonValidity()
+        {
+            // Arrange
+            var pentagon = Helpers.Pentagon();
+
+            // Act
+            var fvTable = TableFactory.CreateFaceVertexTable(pentagon);
+
+            // Assert
+            Assert.AreEqual(1, fvTable.FaceCount);
+            Assert.AreEqual(5, fvTable[new FaceIndex(0)].Length);
         }
     }
 }

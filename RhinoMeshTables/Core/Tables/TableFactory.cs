@@ -33,37 +33,41 @@ namespace RhinoMeshTables.Core.Tables
             return vertices;
         }
 
-        private static VertexEdge[] GetVertexEdges(Mesh mesh)
+        private static Dictionary<uint, int> GetFaceNgonTable(Mesh mesh)
         {
-            var edges = new VertexEdge[mesh.TopologyEdges.Count];
-            for (int i = 0; i < mesh.TopologyEdges.Count; i++)
+            var fn_table = new Dictionary<uint, int>();
+            var ngons = mesh.GetNgonAndFacesEnumerable().ToArray();
+            for (int i = 0; i < ngons.Length; i++)
             {
-                edges[i] = new VertexEdge(from vIndex in mesh.TopologyEdges.GetTopologyVertices(i)
-                    select (uint) vIndex);
+                foreach (var index in ngons[i].FaceIndexList())
+                {
+                    fn_table[index] = i;
+                }
             }
 
-            return edges;
-        }
-
-        private static FaceEdge[] GetFaceEdges(Mesh mesh)
-        {
-            var edges = new FaceEdge[mesh.TopologyEdges.Count];
-            for (int i = 0; i < mesh.TopologyEdges.Count; i++)
-            {
-                edges[i] = new FaceEdge(from fIndex in mesh.TopologyEdges.GetConnectedFaces(i) select (uint) fIndex);
-            }
-
-            return edges;
+            return fn_table;
         }
 
         private static Edge[] GetEdges(Mesh mesh)
         {
-            var edges = new Edge[mesh.TopologyEdges.Count];
-            for (int i = 0; i < mesh.TopologyEdges.Count; i++)
+            var edgeIndices = (from index in Enumerable.Range(0, mesh.TopologyEdges.Count)
+                where !mesh.TopologyEdges.IsNgonInterior(index)
+                select index).ToArray();
+            var edges = new Edge[edgeIndices.Length];
+            var fn_table = GetFaceNgonTable(mesh);
+            for (int i = 0; i < edgeIndices.Length; i++)
             {
-                var verts = from vIndex in mesh.TopologyEdges.GetTopologyVertices(i)
+                var verts = from vIndex in mesh.TopologyEdges.GetTopologyVertices(edgeIndices[i])
                     select (uint) vIndex;
-                var faces = from fIndex in mesh.TopologyEdges.GetConnectedFaces(i) select (uint) fIndex;
+                var faces = from fIndex in mesh.TopologyEdges.GetConnectedFaces(edgeIndices[i]) select (uint) fIndex;
+
+                var nGonSet = new HashSet<int>();
+                foreach (var faceIndex in faces)
+                {
+                    nGonSet.Add(fn_table[faceIndex]);
+                }
+
+                faces = from ngon in nGonSet select (uint) ngon;
 
                 edges[i] = new Edge(verts, faces);
             }

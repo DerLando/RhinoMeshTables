@@ -22,8 +22,8 @@ namespace RhinoPluginTests
             var fvTable = TableFactory.CreateEdgeVertexTable(testMesh);
 
             // Assert
-            Assert.AreEqual(fvTable.EdgeCount, testMesh.TopologyEdges.Count);
-            Assert.AreEqual(fvTable.VertexCount, testMesh.TopologyVertices.Count);
+            Assert.AreEqual(12, fvTable.EdgeCount);
+            Assert.AreEqual(8, fvTable.VertexCount);
         }
     }
 }

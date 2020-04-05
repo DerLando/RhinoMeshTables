@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MeshTables.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RhinoMeshTables.Core.Indices;
 using RhinoMeshTables.Core.Tables;
 
 namespace RhinoPluginTests
@@ -22,8 +23,23 @@ namespace RhinoPluginTests
             var fvTable = TableFactory.CreateEdgeFaceTable(testMesh);
 
             // Assert
-            Assert.AreEqual(fvTable.EdgeCount, testMesh.TopologyEdges.Count);
-            Assert.AreEqual(fvTable.FaceCount, testMesh.GetNgonAndFacesCount());
+            Assert.AreEqual(12, fvTable.EdgeCount);
+            Assert.AreEqual(6, fvTable.FaceCount);
+        }
+
+        [TestMethod]
+        public void TestNgonValidity()
+        {
+            // Arrange
+            var testMesh = Helpers.Pentagon();
+
+            // Act
+            var evTable = TableFactory.CreateEdgeFaceTable(testMesh);
+
+            // Assert
+            Assert.AreEqual(1, evTable.FaceCount);
+            Assert.AreEqual(5, evTable.EdgeCount);
+            Assert.AreEqual(5, evTable[new FaceIndex(0)].Length);
         }
     }
 }
