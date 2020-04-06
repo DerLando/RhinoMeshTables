@@ -11,7 +11,10 @@ namespace MeshTables.Tests
     {
         public static Mesh Cube()
         {
-            return Mesh.CreateFromBox(new BoundingBox(-1, -1, -1, 1, 1, 1), 1, 1, 1);
+            var mesh = Mesh.CreateFromBox(new BoundingBox(-1, -1, -1, 1, 1, 1), 1, 1, 1);
+            mesh.Weld(0.01);
+
+            return mesh;
         }
 
         public static Mesh Square()

@@ -52,7 +52,7 @@ namespace RhinoMeshTables.Core.Tables
 
         #region Edge getters
 
-        private EdgeIndex[] GetFaceIndices(FaceIndex key)
+        public EdgeIndex[] GetFaceIndices(FaceIndex key)
         {
             return _fe_dict[key].ToArray();
         }

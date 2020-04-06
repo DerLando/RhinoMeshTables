@@ -15,7 +15,10 @@ namespace RhinoMeshTables.Core.Tables
             var iter = 0;
             foreach (var face in mesh.GetNgonAndFacesEnumerable())
             {
-                faces[iter] = new Face(face.BoundaryVertexIndexList());
+                var topoVertIndices = 
+                    from vert in face.BoundaryVertexIndexList()
+                    select (uint)mesh.TopologyVertices.TopologyVertexIndex((int) vert);
+                faces[iter] = new Face(topoVertIndices);
                 iter += 1;
             }
 

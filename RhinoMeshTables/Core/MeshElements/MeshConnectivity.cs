@@ -22,11 +22,45 @@ namespace RhinoMeshTables.Core.MeshElements
             _fvTable = new FaceVertexTable(_faces, _vertices);
             _evTable = new EdgeVertexTable(_edges, _vertices);
             _efTable = new EdgeFaceTable(_edges, _faces);
+
+            _normals = CalculateNormals();
         }
 
         public int VertexCount => _vertices.Length;
         public int FaceCount => _faces.Length;
         public int EdgeCount => _edges.Length;
+
+        private readonly Vector3d[] _normals;
+
+        /// <summary>
+        /// Calculates normals for all faces using Newells method
+        /// </summary>
+        /// <returns></returns>
+        private Vector3d[] CalculateNormals()
+        {
+            var normals = new Vector3d[_faces.Length];
+            for (int i = 0; i < _faces.Length; i++)
+            {
+                var normal = Vector3d.Zero;
+                var face = _faces[i];
+                var vertexCount = face.VertexIndices.Length;
+
+                for (int j = 0; j < vertexCount; j++)
+                {
+                    var v0 = _vertices[face.VertexIndices[j].Value];
+                    var v1 = _vertices[face.VertexIndices[(j + 1) % (vertexCount - 1)].Value];
+
+                    normal.X += (v0.Position.Y - v1.Position.Y) * (v0.Position.Z + v1.Position.Z);
+                    normal.Y += (v0.Position.Z - v1.Position.Z) * (v0.Position.X + v1.Position.X);
+                    normal.Z += (v0.Position.X - v1.Position.X) * (v0.Position.Y + v1.Position.Y);
+                }
+
+                normal.Unitize();
+                normals[i] = normal;
+            }
+
+            return normals;
+        }
 
         #region Vertex Getters
 
@@ -84,6 +118,7 @@ namespace RhinoMeshTables.Core.MeshElements
         /// <returns></returns>
         public Face GetFace(FaceIndex index) => _faces[index.Value];
         public Face GetFace(int index) => _faces[index];
+        public IEnumerable<Face> GetFaces() => _faces.AsEnumerable();
 
         /// <summary>
         /// Returns the indices of all faces neighboring the given face
@@ -124,6 +159,24 @@ namespace RhinoMeshTables.Core.MeshElements
         {
             return _edges[index.Value].FaceIndices;
         }
+
+        #endregion
+
+        #region Edge Getters
+
+        public Edge GetEdge(EdgeIndex index) => _edges[index.Value];
+        public Edge GetEdge(int index) => _edges[index];
+        public IEnumerable<Edge> GetEdges() => _edges.AsEnumerable();
+
+        public EdgeIndex[] GetEdgeIndices(VertexIndex index) => _evTable.GetEdgeIndices(index);
+        public EdgeIndex[] GetEdgeIndices(FaceIndex index) => _efTable.GetFaceIndices(index);
+
+        #endregion
+
+        #region Normals getters
+
+        public Vector3d GetNormal(FaceIndex index) => _normals[index.Value];
+        public Vector3d GetNormal(int index) => _normals[index];
 
         #endregion
     }

@@ -47,7 +47,7 @@ namespace RhinoMeshTables.Core.Tables
 
         #region Edge getters
 
-        private EdgeIndex[] GetEdgeIndices(VertexIndex key)
+        public EdgeIndex[] GetEdgeIndices(VertexIndex key)
         {
             return _ve_dict[key].ToArray();
         }
