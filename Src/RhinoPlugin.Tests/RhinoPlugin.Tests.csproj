@@ -66,6 +66,7 @@
     <Compile Include="EdgeVertexTests.cs" />
     <Compile Include="FaceVertexTests.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="IndexPairTests.cs" />
     <Compile Include="TestInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
