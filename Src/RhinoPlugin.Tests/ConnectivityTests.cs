@@ -90,10 +90,10 @@ namespace RhinoPluginTests
             var connectivity = new MeshConnectivity(testMesh);
 
             // Assert
-            for (int i = 0; i < 6; i++)
+            foreach (var facePair in connectivity.GetFacePairs())
             {
-                Assert.AreEqual(Math.PI / 2.0, connectivity.GetFacePairProperties(new FaceIndex((uint) i)).Angle.Min);
-                Assert.AreEqual(Math.PI * 1.5, connectivity.GetFacePairProperties(new FaceIndex((uint) i)).Angle.Max);
+                Assert.AreEqual(Math.PI / 2.0, facePair.Angle.Min);
+                Assert.AreEqual(Math.PI * 1.5, facePair.Angle.Max);
             }
         }
     }

@@ -60,7 +60,7 @@
     <Compile Include="Core\Indices\IndexType.cs" />
     <Compile Include="Core\MeshElements\FaceAngle.cs" />
     <Compile Include="Core\MeshElements\FacePair.cs" />
-    <Compile Include="Core\MeshElements\FacePairProperties.cs" />
+    <Compile Include="Core\MeshElements\PairFactory.cs" />
     <Compile Include="Core\MeshElements\Vertex.cs" />
     <Compile Include="Core\Tables\EdgeFaceTable.cs" />
     <Compile Include="Core\Tables\EdgeVertexTable.cs" />

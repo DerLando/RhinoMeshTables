@@ -12,9 +12,11 @@ namespace RhinoMeshTables.Core.MeshElements
         private readonly Vertex[] _vertices;
         private readonly Face[] _faces;
         private readonly Edge[] _edges;
+        private readonly FacePair[] _facePairs;
         private FaceVertexTable _fvTable;
         private EdgeVertexTable _evTable;
         private EdgeFaceTable _efTable;
+        private FacePairTable _fpTable;
 
         public MeshConnectivity(Mesh mesh)
         {
@@ -25,8 +27,9 @@ namespace RhinoMeshTables.Core.MeshElements
             _efTable = new EdgeFaceTable(_edges, _faces);
 
             _normals = CalculateNormals();
-            
-            CalculateFacePairPropertiesTable(out _facePairProperties, out _properties_dict);
+
+            _facePairs = PairFactory.GetFacePairs(this);
+            _fpTable = PairFactory.CalculateFacePairTable(_facePairs);
         }
 
         public int VertexCount => _vertices.Length;
@@ -70,63 +73,18 @@ namespace RhinoMeshTables.Core.MeshElements
 
         #endregion
 
-        #region FacePairProperties
+        #region FacePairs
 
-        private readonly FacePairProperties[] _facePairProperties;
-        private readonly Dictionary<FaceIndex, int> _properties_dict;
+        public FacePair GetFacePair(IndexPair<FaceIndex> indices) => _fpTable.GetFacePair(indices);
+        public IEnumerable<FacePair> GetFacePairs() => _fpTable.GetFacePairs();
 
-        public FacePairProperties GetFacePairProperties(FaceIndex index) =>
-            _facePairProperties[_properties_dict[index]];
-
-        private void CalculateFacePairPropertiesTable(out FacePairProperties[] properties,
-            out Dictionary<FaceIndex, int> propertiesDict)
-        {
-            var facePairs = GetFacePairs();
-
-            properties = new FacePairProperties[facePairs.Length];
-            propertiesDict = new Dictionary<FaceIndex, int>();
-
-            for (int i = 0; i < facePairs.Length; i++)
-            {
-                var pair = facePairs[i];
-                var edgeIndex = GetSharedEdgeIndex(pair);
-                var angle = CalculateFacePairAngle(pair, edgeIndex);
-
-                properties[i] = new FacePairProperties(angle, edgeIndex);
-
-                propertiesDict[pair.Item1] = i;
-                propertiesDict[pair.Item2] = i;
-            }
-        }
-
-        private Tuple<FaceIndex, FaceIndex>[] GetFacePairs()
-        {
-            var pairDict = new Dictionary<int, FaceIndex[]>();
-
-            foreach (var faceIndex in GetFaceIndices())
-            {
-                foreach (var pairIndex in GetFaceNeighborIndices(faceIndex))
-                {
-                    var hash = faceIndex.GetHashCode() + pairIndex.GetHashCode();
-                    pairDict[hash] = new[] {faceIndex, pairIndex};
-                }
-            }
-
-            return (from pair in pairDict.Values select Tuple.Create(pair[0], pair[1])).ToArray();
-        }
-
-        private FaceAngle CalculateFacePairAngle(Tuple<FaceIndex, FaceIndex> indices, EdgeIndex sharedEdgeIndex)
-        {
-            return new FaceAngle(GetNormal(indices.Item1), GetNormal(indices.Item2), GetEdgeDirection(sharedEdgeIndex));
-        }
-
-        private EdgeIndex GetSharedEdgeIndex(Tuple<FaceIndex, FaceIndex> indices)
+        public EdgeIndex GetSharedEdgeIndex(IndexPair<FaceIndex> indices)
         {
             // TODO: Inefficient could be better implemented as a table i guess
-            return GetEdgeIndices(indices.Item1).Intersect(GetEdgeIndices(indices.Item2)).First();
+            return GetEdgeIndices(indices.FirstIndex).Intersect(GetEdgeIndices(indices.SecondIndex)).First();
         }
 
-        private Vector3d GetEdgeDirection(EdgeIndex index)
+        public Vector3d GetEdgeDirection(EdgeIndex index)
         {
             var edge = GetEdge(index);
             return GetVertex(edge.VertexIndices[1]).Position - GetVertex(edge.VertexIndices[0]).Position;
