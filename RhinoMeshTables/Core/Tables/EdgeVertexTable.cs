@@ -10,11 +10,11 @@ namespace RhinoMeshTables.Core.Tables
 {
     public class EdgeVertexTable : TableBase
     {
-        private Edge[] _edges;
-        private Vertex[] _vertices;
-        private Dictionary<VertexIndex, List<EdgeIndex>> _ve_dict;
+        private readonly Edge[] _edges;
+        private readonly Vertex[] _vertices;
+        private readonly Dictionary<VertexIndex, List<EdgeIndex>> _ve_dict;
 
-        public EdgeVertexTable(Edge[] edges, Vertex[] vertices)
+        public EdgeVertexTable(in Edge[] edges, in Vertex[] vertices)
         {
             _edges = edges;
             _vertices = vertices;

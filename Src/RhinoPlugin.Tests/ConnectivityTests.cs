@@ -64,13 +64,37 @@ namespace RhinoPluginTests
         {
             // Arrange
             var testMesh = Helpers.Pentagon();
+            var cube = Helpers.Cube();
 
             // Act
             var connectivity = new MeshConnectivity(testMesh);
             var normal = connectivity.GetNormal(0);
+            var cubeConnectivity = new MeshConnectivity(cube);
 
             // Assert
             Assert.AreEqual(Vector3d.ZAxis, normal);
+            for (int i = 0; i < 6; i++)
+            {
+                var fNormal = cubeConnectivity.GetNormal(i);
+                Assert.IsTrue(Helpers.IsOrthogonal(fNormal));
+            }
+        }
+
+        [TestMethod]
+        public void TestFaceAngles()
+        {
+            // Arrange
+            var testMesh = Helpers.Cube();
+
+            // Act
+            var connectivity = new MeshConnectivity(testMesh);
+
+            // Assert
+            for (int i = 0; i < 6; i++)
+            {
+                Assert.AreEqual(Math.PI / 2.0, connectivity.GetFacePairProperties(new FaceIndex((uint) i)).Angle.Min);
+                Assert.AreEqual(Math.PI * 1.5, connectivity.GetFacePairProperties(new FaceIndex((uint) i)).Angle.Max);
+            }
         }
     }
 }

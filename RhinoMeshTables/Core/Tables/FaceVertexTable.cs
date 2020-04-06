@@ -7,10 +7,10 @@ namespace RhinoMeshTables.Core.Tables
 {
     public class FaceVertexTable : TableBase
     {
-        private Face[] _faces;
-        private Vertex[] _vertices;
+        private readonly Face[] _faces;
+        private readonly Vertex[] _vertices;
 
-        public FaceVertexTable(Face[] faces, Vertex[] vertices)
+        public FaceVertexTable(in Face[] faces, in Vertex[] vertices)
         {
             _faces = faces;
             _vertices = vertices;

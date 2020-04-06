@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
 using RhinoMeshTables.Core.Indices;
@@ -24,11 +25,16 @@ namespace RhinoMeshTables.Core.MeshElements
             _efTable = new EdgeFaceTable(_edges, _faces);
 
             _normals = CalculateNormals();
+            
+            CalculateFacePairPropertiesTable(out _facePairProperties, out _properties_dict);
         }
 
         public int VertexCount => _vertices.Length;
         public int FaceCount => _faces.Length;
         public int EdgeCount => _edges.Length;
+
+
+        #region Normal calculations
 
         private readonly Vector3d[] _normals;
 
@@ -48,7 +54,7 @@ namespace RhinoMeshTables.Core.MeshElements
                 for (int j = 0; j < vertexCount; j++)
                 {
                     var v0 = _vertices[face.VertexIndices[j].Value];
-                    var v1 = _vertices[face.VertexIndices[(j + 1) % (vertexCount - 1)].Value];
+                    var v1 = _vertices[face.VertexIndices[(j + 1) % (vertexCount)].Value];
 
                     normal.X += (v0.Position.Y - v1.Position.Y) * (v0.Position.Z + v1.Position.Z);
                     normal.Y += (v0.Position.Z - v1.Position.Z) * (v0.Position.X + v1.Position.X);
@@ -61,6 +67,72 @@ namespace RhinoMeshTables.Core.MeshElements
 
             return normals;
         }
+
+        #endregion
+
+        #region FacePairProperties
+
+        private readonly FacePairProperties[] _facePairProperties;
+        private readonly Dictionary<FaceIndex, int> _properties_dict;
+
+        public FacePairProperties GetFacePairProperties(FaceIndex index) =>
+            _facePairProperties[_properties_dict[index]];
+
+        private void CalculateFacePairPropertiesTable(out FacePairProperties[] properties,
+            out Dictionary<FaceIndex, int> propertiesDict)
+        {
+            var facePairs = GetFacePairs();
+
+            properties = new FacePairProperties[facePairs.Length];
+            propertiesDict = new Dictionary<FaceIndex, int>();
+
+            for (int i = 0; i < facePairs.Length; i++)
+            {
+                var pair = facePairs[i];
+                var edgeIndex = GetSharedEdgeIndex(pair);
+                var angle = CalculateFacePairAngle(pair, edgeIndex);
+
+                properties[i] = new FacePairProperties(angle, edgeIndex);
+
+                propertiesDict[pair.Item1] = i;
+                propertiesDict[pair.Item2] = i;
+            }
+        }
+
+        private Tuple<FaceIndex, FaceIndex>[] GetFacePairs()
+        {
+            var pairDict = new Dictionary<int, FaceIndex[]>();
+
+            foreach (var faceIndex in GetFaceIndices())
+            {
+                foreach (var pairIndex in GetFaceNeighborIndices(faceIndex))
+                {
+                    var hash = faceIndex.GetHashCode() + pairIndex.GetHashCode();
+                    pairDict[hash] = new[] {faceIndex, pairIndex};
+                }
+            }
+
+            return (from pair in pairDict.Values select Tuple.Create(pair[0], pair[1])).ToArray();
+        }
+
+        private FaceAngle CalculateFacePairAngle(Tuple<FaceIndex, FaceIndex> indices, EdgeIndex sharedEdgeIndex)
+        {
+            return new FaceAngle(GetNormal(indices.Item1), GetNormal(indices.Item2), GetEdgeDirection(sharedEdgeIndex));
+        }
+
+        private EdgeIndex GetSharedEdgeIndex(Tuple<FaceIndex, FaceIndex> indices)
+        {
+            // TODO: Inefficient could be better implemented as a table i guess
+            return GetEdgeIndices(indices.Item1).Intersect(GetEdgeIndices(indices.Item2)).First();
+        }
+
+        private Vector3d GetEdgeDirection(EdgeIndex index)
+        {
+            var edge = GetEdge(index);
+            return GetVertex(edge.VertexIndices[1]).Position - GetVertex(edge.VertexIndices[0]).Position;
+        }
+
+        #endregion
 
         #region Vertex Getters
 
@@ -119,6 +191,9 @@ namespace RhinoMeshTables.Core.MeshElements
         public Face GetFace(FaceIndex index) => _faces[index.Value];
         public Face GetFace(int index) => _faces[index];
         public IEnumerable<Face> GetFaces() => _faces.AsEnumerable();
+
+        public IEnumerable<FaceIndex> GetFaceIndices() =>
+            from index in Enumerable.Range(0, FaceCount) select new FaceIndex((uint) index);
 
         /// <summary>
         /// Returns the indices of all faces neighboring the given face

@@ -13,11 +13,11 @@ namespace RhinoMeshTables.Core.Tables
     /// </summary>
     public class EdgeFaceTable : TableBase
     {
-        private Edge[] _edges;
-        private Face[] _faces;
-        private Dictionary<FaceIndex, List<EdgeIndex>> _fe_dict;
+        private readonly Edge[] _edges;
+        private readonly Face[] _faces;
+        private readonly Dictionary<FaceIndex, List<EdgeIndex>> _fe_dict;
 
-        public EdgeFaceTable(Edge[] edges, Face[] faces)
+        public EdgeFaceTable(in Edge[] edges, in Face[] faces)
         {
             _edges = edges;
             _faces = faces;

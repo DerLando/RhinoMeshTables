@@ -41,5 +41,13 @@ namespace MeshTables.Tests
 
             return mesh;
         }
+
+        public static bool IsOrthogonal(Vector3d vec)
+        {
+            if (vec.X == 0 && vec.Y == 0) return true;
+            if (vec.Y == 0 && vec.Z == 0) return true;
+            if (vec.Z == 0 && vec.X == 0) return true;
+            return false;
+        }
     }
 }
