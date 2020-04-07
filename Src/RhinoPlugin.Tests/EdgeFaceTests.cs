@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using MeshTables.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rhino.Geometry;
 using RhinoMeshTables.Core.Indices;
 using RhinoMeshTables.Core.Tables;
+using RhinoMeshTablesIO;
 
 namespace RhinoPluginTests
 {
@@ -20,7 +22,7 @@ namespace RhinoPluginTests
             var testMesh = Helpers.Cube();
 
             // Act
-            var fvTable = TableFactory.CreateEdgeFaceTable(testMesh);
+            var fvTable = TableFactory.CreateEdgeFaceTable(new RhinoMeshExtractor(testMesh));
 
             // Assert
             Assert.AreEqual(12, fvTable.EdgeCount);
@@ -34,7 +36,7 @@ namespace RhinoPluginTests
             var testMesh = Helpers.Pentagon();
 
             // Act
-            var evTable = TableFactory.CreateEdgeFaceTable(testMesh);
+            var evTable = TableFactory.CreateEdgeFaceTable(new RhinoMeshExtractor(testMesh));
 
             // Assert
             Assert.AreEqual(1, evTable.FaceCount);

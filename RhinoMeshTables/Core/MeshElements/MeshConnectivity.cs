@@ -7,7 +7,7 @@ using RhinoMeshTables.Core.Tables;
 
 namespace RhinoMeshTables.Core.MeshElements
 {
-    public class MeshConnectivity
+    public class MeshConnectivity<T>
     {
         private readonly Vertex[] _vertices;
         private readonly Face[] _faces;
@@ -18,9 +18,9 @@ namespace RhinoMeshTables.Core.MeshElements
         private EdgeFaceTable _efTable;
         private FacePairTable _fpTable;
 
-        public MeshConnectivity(Mesh mesh)
+        public MeshConnectivity(IMeshExtractor<T> extractor)
         {
-            TableFactory.GetElements(mesh, out _vertices, out _faces, out _edges);
+            TableFactory.GetElements(extractor, out _vertices, out _faces, out _edges);
 
             _fvTable = new FaceVertexTable(_faces, _vertices);
             _evTable = new EdgeVertexTable(_edges, _vertices);

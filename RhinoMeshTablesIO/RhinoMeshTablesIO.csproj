@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7D6475E1-3255-4182-8F36-02E8D66E8F1F}</ProjectGuid>
+    <ProjectGuid>{61668B1D-9294-4D95-AD4E-5CE6F9F90188}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RhinoMeshTables</RootNamespace>
-    <AssemblyName>RhinoMeshTables</AssemblyName>
+    <RootNamespace>RhinoMeshTablesIO</RootNamespace>
+    <AssemblyName>RhinoMeshTablesIO</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -30,7 +30,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,28 +53,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\MeshElements\Edge.cs" />
-    <Compile Include="Core\MeshElements\Face.cs" />
-    <Compile Include="Core\Indices\Index.cs" />
-    <Compile Include="Core\Indices\IndexType.cs" />
-    <Compile Include="Core\MeshElements\FaceAngle.cs" />
-    <Compile Include="Core\MeshElements\FacePair.cs" />
-    <Compile Include="Core\MeshElements\PairFactory.cs" />
-    <Compile Include="Core\MeshElements\Vertex.cs" />
-    <Compile Include="Core\Tables\EdgeFaceTable.cs" />
-    <Compile Include="Core\Tables\EdgeVertexTable.cs" />
-    <Compile Include="Core\Tables\FacePairTable.cs" />
-    <Compile Include="Core\Tables\FaceVertexTable.cs" />
-    <Compile Include="Core\MeshElements\MeshConnectivity.cs" />
-    <Compile Include="Core\Tables\IMeshExtractor.cs" />
-    <Compile Include="Core\Tables\TableBase.cs" />
-    <Compile Include="Core\Tables\TableFactory.cs" />
-    <Compile Include="RhinoMeshTablesCommand.cs" />
-    <Compile Include="RhinoMeshTablesPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RhinoMeshExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EmbeddedResources\plugin-utility.ico" />
+    <ProjectReference Include="..\RhinoMeshTables\RhinoMeshTables.csproj">
+      <Project>{7d6475e1-3255-4182-8f36-02e8d66e8f1f}</Project>
+      <Name>RhinoMeshTables</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -86,7 +71,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).rhp"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
@@ -96,6 +82,5 @@
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
 </Project>

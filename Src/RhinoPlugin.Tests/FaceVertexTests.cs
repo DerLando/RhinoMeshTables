@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Geometry;
 using RhinoMeshTables.Core.Indices;
 using RhinoMeshTables.Core.Tables;
+using RhinoMeshTablesIO;
 
 namespace MeshTables.Tests
 {
@@ -16,7 +17,7 @@ namespace MeshTables.Tests
             var testMesh = Helpers.Cube();
 
             // Act
-            var evTable = TableFactory.CreateFaceVertexTable(testMesh);
+            var evTable = TableFactory.CreateFaceVertexTable(new RhinoMeshExtractor(testMesh));
 
             // Assert
             Assert.AreEqual(6, evTable.FaceCount);
@@ -31,7 +32,7 @@ namespace MeshTables.Tests
             var testMesh = Helpers.Cube();
 
             // Act
-            var fvTable = TableFactory.CreateFaceVertexTable(testMesh);
+            var fvTable = TableFactory.CreateFaceVertexTable(new RhinoMeshExtractor(testMesh));
 
             // Assert
             for (int i = 0; i < testMesh.TopologyVertices.Count; i++)
@@ -51,7 +52,7 @@ namespace MeshTables.Tests
             var pentagon = Helpers.Pentagon();
 
             // Act
-            var fvTable = TableFactory.CreateFaceVertexTable(pentagon);
+            var fvTable = TableFactory.CreateFaceVertexTable(new RhinoMeshExtractor(pentagon));
 
             // Assert
             Assert.AreEqual(1, fvTable.FaceCount);

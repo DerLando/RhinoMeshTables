@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MeshTables.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RhinoMeshTables.Core.Tables;
+using RhinoMeshTablesIO;
 
 namespace RhinoPluginTests
 {
@@ -19,7 +20,7 @@ namespace RhinoPluginTests
             var testMesh = Helpers.Cube();
 
             // Act
-            var fvTable = TableFactory.CreateEdgeVertexTable(testMesh);
+            var fvTable = TableFactory.CreateEdgeVertexTable(new RhinoMeshExtractor(testMesh));
 
             // Assert
             Assert.AreEqual(12, fvTable.EdgeCount);

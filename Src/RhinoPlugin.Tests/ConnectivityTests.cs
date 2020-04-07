@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Geometry;
 using RhinoMeshTables.Core.Indices;
 using RhinoMeshTables.Core.MeshElements;
+using RhinoMeshTablesIO;
 
 namespace RhinoPluginTests
 {
@@ -21,7 +22,7 @@ namespace RhinoPluginTests
             var testMesh = Helpers.Cube();
 
             // Act
-            var connectivity = new MeshConnectivity(testMesh);
+            var connectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(testMesh));
 
             // Assert
             Assert.AreEqual(8, connectivity.VertexCount);
@@ -44,10 +45,10 @@ namespace RhinoPluginTests
         public void TestVertexNeighborConnectivity()
         {
             // Arrange
-            var square = Helpers.Square();
+            var testMesh = Helpers.Square();
 
             // Act
-            var connectivity = new MeshConnectivity(square);
+            var connectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(testMesh));
             var connectedToFirst = connectivity.GetVertexNeighborIndices(new VertexIndex(0));
 
             // Assert
@@ -67,9 +68,9 @@ namespace RhinoPluginTests
             var cube = Helpers.Cube();
 
             // Act
-            var connectivity = new MeshConnectivity(testMesh);
+            var connectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(testMesh));
             var normal = connectivity.GetNormal(0);
-            var cubeConnectivity = new MeshConnectivity(cube);
+            var cubeConnectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(cube));
 
             // Assert
             Assert.AreEqual(Vector3d.ZAxis, normal);
@@ -87,7 +88,7 @@ namespace RhinoPluginTests
             var testMesh = Helpers.Cube();
 
             // Act
-            var connectivity = new MeshConnectivity(testMesh);
+            var connectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(testMesh));
 
             // Assert
             foreach (var facePair in connectivity.GetFacePairs())

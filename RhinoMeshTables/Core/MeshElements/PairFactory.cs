@@ -12,7 +12,7 @@ namespace RhinoMeshTables.Core.MeshElements
     {
         #region Face pairs
 
-        private static IndexPair<FaceIndex>[] _getFacePairs(MeshConnectivity connectivity)
+        private static IndexPair<FaceIndex>[] _getFacePairs<T>(MeshConnectivity<T> connectivity)
         {
             var pairDict = new Dictionary<int, FaceIndex[]>();
 
@@ -28,13 +28,13 @@ namespace RhinoMeshTables.Core.MeshElements
             return (from pair in pairDict.Values select new IndexPair<FaceIndex>(pair[0], pair[1])).ToArray();
         }
 
-        private static FaceAngle _calculateFacePairAngle(MeshConnectivity connectivity, IndexPair<FaceIndex> indices, EdgeIndex sharedEdgeIndex)
+        private static FaceAngle _calculateFacePairAngle<T>(MeshConnectivity<T> connectivity, IndexPair<FaceIndex> indices, EdgeIndex sharedEdgeIndex)
         {
             return new FaceAngle(connectivity.GetNormal(indices.FirstIndex), connectivity.GetNormal(indices.SecondIndex),
                 connectivity.GetEdgeDirection(sharedEdgeIndex));
         }
 
-        public static FacePair[] GetFacePairs(MeshConnectivity connectivity)
+        public static FacePair[] GetFacePairs<T>(MeshConnectivity<T> connectivity)
         {
             var indexPairs = _getFacePairs(connectivity);
             var facePairs = new FacePair[indexPairs.Length];

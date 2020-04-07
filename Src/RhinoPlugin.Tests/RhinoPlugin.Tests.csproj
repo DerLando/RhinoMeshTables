@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RhinoMeshTablesIO\RhinoMeshTablesIO.csproj">
+      <Project>{61668b1d-9294-4d95-ad4e-5ce6f9f90188}</Project>
+      <Name>RhinoMeshTablesIO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RhinoMeshTables\RhinoMeshTables.csproj">
       <Project>{7d6475e1-3255-4182-8f36-02e8d66e8f1f}</Project>
       <Name>RhinoMeshTables</Name>
