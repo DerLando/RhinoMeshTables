@@ -46,7 +46,9 @@ namespace MeshTableLibrary.Core.Indices
 
         public override int GetHashCode()
         {
-            return FirstIndex.GetHashCode() + SecondIndex.GetHashCode();
+            var a = FirstIndex.GetHashCode();
+            var b = SecondIndex.GetHashCode();
+            return a * b + a + b;
         }
     }
 

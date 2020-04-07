@@ -12,18 +12,17 @@ namespace MeshTableLibrary.Core.MeshElements
 
         private static IndexPair<FaceIndex>[] _getFacePairs<T>(MeshConnectivity<T> connectivity)
         {
-            var pairDict = new Dictionary<int, FaceIndex[]>();
-
+            var pairSet = new HashSet<IndexPair<FaceIndex>>();
             foreach (var faceIndex in connectivity.GetFaceIndices())
             {
                 foreach (var pairIndex in connectivity.GetFaceNeighborIndices(faceIndex))
                 {
-                    var hash = faceIndex.GetHashCode() + pairIndex.GetHashCode();
-                    pairDict[hash] = new[] { faceIndex, pairIndex };
+                    var pair = new IndexPair<FaceIndex>(faceIndex, pairIndex);
+                    pairSet.Add(pair);
                 }
             }
 
-            return (from pair in pairDict.Values select new IndexPair<FaceIndex>(pair[0], pair[1])).ToArray();
+            return pairSet.ToArray();
         }
 
         private static FaceAngle _calculateFacePairAngle<T>(MeshConnectivity<T> connectivity, IndexPair<FaceIndex> indices, EdgeIndex sharedEdgeIndex)

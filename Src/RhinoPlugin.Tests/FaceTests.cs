@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MeshTableLibrary.Core.Indices;
+﻿using MeshTableLibrary.Core.Indices;
 using MeshTableLibrary.Core.Math;
 using MeshTableLibrary.Core.MeshElements;
 using MeshTables.Tests;

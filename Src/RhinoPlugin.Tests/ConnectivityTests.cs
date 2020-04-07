@@ -29,6 +29,7 @@ namespace RhinoPluginTests
             Assert.AreEqual(8, connectivity.VertexCount);
             Assert.AreEqual(6, connectivity.FaceCount);
             Assert.AreEqual(12, connectivity.EdgeCount);
+            Assert.AreEqual(12, connectivity.GetFacePairs().Count());
 
             foreach (var face in connectivity.GetFaces())
             {
