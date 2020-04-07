@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using RhinoMeshTables.Core.MeshElements;
+﻿using MeshTableLibrary.Core.MeshElements;
 
-namespace RhinoMeshTables.Core.Tables
+namespace MeshTableLibrary.Core.Tables
 {
     public static class TableFactory
     {

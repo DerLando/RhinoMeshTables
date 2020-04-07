@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeshTableLibrary.Core.MeshElements;
+using MeshTableLibrary.Core.Tables;
 using Rhino.Geometry;
-using RhinoMeshTables.Core.MeshElements;
-using RhinoMeshTables.Core.Tables;
 
 namespace RhinoMeshTablesIO
 {

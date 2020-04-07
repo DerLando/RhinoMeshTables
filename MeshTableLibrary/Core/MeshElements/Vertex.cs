@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RhinoMeshTables.Core.Math;
+﻿using MeshTableLibrary.Core.Math;
 
-namespace RhinoMeshTables.Core.MeshElements
+namespace MeshTableLibrary.Core.MeshElements
 {
     public readonly struct Vertex
     {

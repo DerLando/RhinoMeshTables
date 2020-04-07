@@ -1,6 +1,6 @@
-﻿using RhinoMeshTables.Core.Math;
+﻿using MeshTableLibrary.Core.Math;
 
-namespace RhinoMeshTables.Core.MeshElements
+namespace MeshTableLibrary.Core.MeshElements
 {
     public readonly struct FaceAngle
     {

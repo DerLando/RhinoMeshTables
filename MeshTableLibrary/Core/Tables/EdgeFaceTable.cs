@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RhinoMeshTables.Core.Indices;
-using RhinoMeshTables.Core.MeshElements;
+using MeshTableLibrary.Core.Indices;
+using MeshTableLibrary.Core.MeshElements;
 
-namespace RhinoMeshTables.Core.Tables
+namespace MeshTableLibrary.Core.Tables
 {
     /// <summary>
     /// Table which can be queried for relations between edges and faces

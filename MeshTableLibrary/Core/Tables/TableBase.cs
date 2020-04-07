@@ -1,4 +1,4 @@
-﻿namespace RhinoMeshTables.Core.Tables
+﻿namespace MeshTableLibrary.Core.Tables
 {
     public abstract class TableBase
     {

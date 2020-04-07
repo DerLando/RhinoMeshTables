@@ -74,13 +74,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MeshTableLibrary\MeshTableLibrary.csproj">
+      <Project>{c4b29187-bb34-4522-ac44-33c7546795a4}</Project>
+      <Name>MeshTableLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RhinoMeshTablesIO\RhinoMeshTablesIO.csproj">
       <Project>{61668b1d-9294-4d95-ad4e-5ce6f9f90188}</Project>
       <Name>RhinoMeshTablesIO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RhinoMeshTables\RhinoMeshTables.csproj">
-      <Project>{7d6475e1-3255-4182-8f36-02e8d66e8f1f}</Project>
-      <Name>RhinoMeshTables</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

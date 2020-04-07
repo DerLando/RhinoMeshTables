@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeshTableLibrary.Core.Indices;
+using MeshTableLibrary.Core.Tables;
 using MeshTables.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Geometry;
-using RhinoMeshTables.Core.Indices;
-using RhinoMeshTables.Core.Tables;
 using RhinoMeshTablesIO;
 
 namespace RhinoPluginTests

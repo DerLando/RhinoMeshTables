@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeshTableLibrary.Core.Tables;
 using MeshTables.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RhinoMeshTables.Core.Tables;
 using RhinoMeshTablesIO;
 
 namespace RhinoPluginTests

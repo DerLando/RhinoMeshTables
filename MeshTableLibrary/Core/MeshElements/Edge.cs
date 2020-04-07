@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RhinoMeshTables.Core.Indices;
+using MeshTableLibrary.Core.Indices;
 
-namespace RhinoMeshTables.Core.MeshElements
+namespace MeshTableLibrary.Core.MeshElements
 {
     public readonly struct Edge
     {

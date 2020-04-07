@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RhinoMeshTablesIO</RootNamespace>
     <AssemblyName>RhinoMeshTablesIO</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -58,9 +59,9 @@
     <Compile Include="RhinoMeshExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RhinoMeshTables\RhinoMeshTables.csproj">
-      <Project>{7d6475e1-3255-4182-8f36-02e8d66e8f1f}</Project>
-      <Name>RhinoMeshTables</Name>
+    <ProjectReference Include="..\MeshTableLibrary\MeshTableLibrary.csproj">
+      <Project>{c4b29187-bb34-4522-ac44-33c7546795a4}</Project>
+      <Name>MeshTableLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

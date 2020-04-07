@@ -1,8 +1,8 @@
 ﻿using System;
+using MeshTableLibrary.Core.Indices;
+using MeshTableLibrary.Core.Tables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Geometry;
-using RhinoMeshTables.Core.Indices;
-using RhinoMeshTables.Core.Tables;
 using RhinoMeshTablesIO;
 
 namespace MeshTables.Tests
