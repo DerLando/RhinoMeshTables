@@ -96,6 +96,7 @@ namespace MeshTableLibrary.Core.MeshElements
 
         public Vertex GetVertex(VertexIndex index) => _vertices[index.Value];
         public Vertex GetVertex(int index) => _vertices[index];
+        public IEnumerable<Vertex> GetVertices() => _vertices.AsEnumerable();
 
         /// <summary>
         /// Returns the indices corresponding to the vertices neighboring
@@ -218,6 +219,14 @@ namespace MeshTableLibrary.Core.MeshElements
 
         public EdgeIndex[] GetEdgeIndices(VertexIndex index) => _evTable.GetEdgeIndices(index);
         public EdgeIndex[] GetEdgeIndices(FaceIndex index) => _efTable.GetFaceIndices(index);
+
+        public Vector3 GetEdgeMid(EdgeIndex index)
+        {
+            var from = GetVertex(GetEdge(index).VertexIndices[0]).Position;
+            var to = GetVertex(GetEdge(index).VertexIndices[1]).Position;
+
+            return from + (to - from) / 2.0;
+        }
 
         #endregion
 
