@@ -64,6 +64,7 @@
     <Compile Include="ConnectivityTests.cs" />
     <Compile Include="EdgeFaceTests.cs" />
     <Compile Include="EdgeVertexTests.cs" />
+    <Compile Include="FaceTests.cs" />
     <Compile Include="FaceVertexTests.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IndexPairTests.cs" />

@@ -193,6 +193,21 @@ namespace MeshTableLibrary.Core.MeshElements
             return _edges[index.Value].FaceIndices;
         }
 
+        public Vector3 GetFaceCentroid(FaceIndex index)
+        {
+            var centroid = Vector3.Zero();
+            var face = GetFace(index);
+            var vCount = face.VertexIndices.Length;
+
+            foreach (var faceVertexIndex in face.VertexIndices)
+            {
+                var vertex = GetVertex(faceVertexIndex);
+                centroid += vertex.Position;
+            }
+
+            return centroid / vCount;
+        }
+
         #endregion
 
         #region Edge Getters

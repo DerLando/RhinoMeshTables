@@ -48,6 +48,7 @@
         public static Vector3 operator -(in Vector3 a, in Vector3 b) => a + (-b);
 
         public static double operator *(in Vector3 a, in Vector3 b) => DotProduct(a, b);
+        public static Vector3 operator *(in Vector3 a, double b) => new Vector3(a.X * b, a.Y * b, a.Z * b);
         public static Vector3 operator /(in Vector3 a, double b) => new Vector3(a.X / b, a.Y / b, a.Z / b);
 
         #endregion

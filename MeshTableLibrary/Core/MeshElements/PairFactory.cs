@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MeshTableLibrary.Core.Indices;
 using MeshTableLibrary.Core.Tables;
@@ -31,6 +32,27 @@ namespace MeshTableLibrary.Core.MeshElements
                 connectivity.GetEdgeDirection(sharedEdgeIndex));
         }
 
+        private static FacePairAngleType _calculateFacePairAngleType<T>(MeshConnectivity<T> connectivity, IndexPair<FaceIndex> indexPair)
+        {
+            var firstCentroid = connectivity.GetFaceCentroid(indexPair.FirstIndex);
+            var secondCentroid = connectivity.GetFaceCentroid(indexPair.SecondIndex);
+            var firstNormal = connectivity.GetNormal(indexPair.FirstIndex);
+            var secondNormal = connectivity.GetNormal(indexPair.SecondIndex);
+
+            var dist = firstCentroid.DistanceToSquared(secondCentroid);
+
+            firstCentroid += (firstNormal * dist);
+            secondCentroid += (secondNormal * dist);
+
+            var newDist = firstCentroid.DistanceToSquared(secondCentroid);
+
+            if (dist < newDist) return FacePairAngleType.Hill;
+            if (dist == newDist) return FacePairAngleType.Saddle;
+            if (dist > newDist) return FacePairAngleType.Valley;
+
+            return FacePairAngleType.Saddle;
+        }
+
         public static FacePair[] GetFacePairs<T>(MeshConnectivity<T> connectivity)
         {
             var indexPairs = _getFacePairs(connectivity);
@@ -41,8 +63,9 @@ namespace MeshTableLibrary.Core.MeshElements
                 var indexPair = indexPairs[i];
                 var edgeIndex = connectivity.GetSharedEdgeIndex(indexPair);
                 var angle = _calculateFacePairAngle(connectivity, indexPair, edgeIndex);
+                var angleType = _calculateFacePairAngleType(connectivity, indexPair);
 
-                facePairs[i] = new FacePair(indexPair, angle, edgeIndex);
+                facePairs[i] = new FacePair(indexPair, angle, edgeIndex, angleType);
             }
 
             return facePairs;
