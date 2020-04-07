@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Rhino.Geometry;
 using RhinoMeshTables.Core.Indices;
+using RhinoMeshTables.Core.Math;
 using RhinoMeshTables.Core.Tables;
 
 namespace RhinoMeshTables.Core.MeshElements
@@ -39,18 +39,20 @@ namespace RhinoMeshTables.Core.MeshElements
 
         #region Normal calculations
 
-        private readonly Vector3d[] _normals;
+        private readonly Vector3[] _normals;
 
         /// <summary>
         /// Calculates normals for all faces using Newells method
         /// </summary>
         /// <returns></returns>
-        private Vector3d[] CalculateNormals()
+        private Vector3[] CalculateNormals()
         {
-            var normals = new Vector3d[_faces.Length];
+            var normals = new Vector3[_faces.Length];
             for (int i = 0; i < _faces.Length; i++)
             {
-                var normal = Vector3d.Zero;
+                var x = 0.0;
+                var y = 0.0;
+                var z = 0.0;
                 var face = _faces[i];
                 var vertexCount = face.VertexIndices.Length;
 
@@ -59,13 +61,12 @@ namespace RhinoMeshTables.Core.MeshElements
                     var v0 = _vertices[face.VertexIndices[j].Value];
                     var v1 = _vertices[face.VertexIndices[(j + 1) % (vertexCount)].Value];
 
-                    normal.X += (v0.Position.Y - v1.Position.Y) * (v0.Position.Z + v1.Position.Z);
-                    normal.Y += (v0.Position.Z - v1.Position.Z) * (v0.Position.X + v1.Position.X);
-                    normal.Z += (v0.Position.X - v1.Position.X) * (v0.Position.Y + v1.Position.Y);
+                    x += (v0.Position.Y - v1.Position.Y) * (v0.Position.Z + v1.Position.Z);
+                    y += (v0.Position.Z - v1.Position.Z) * (v0.Position.X + v1.Position.X);
+                    z += (v0.Position.X - v1.Position.X) * (v0.Position.Y + v1.Position.Y);
                 }
 
-                normal.Unitize();
-                normals[i] = normal;
+                normals[i] = new Vector3(x, y, z).AsNormalized();
             }
 
             return normals;
@@ -84,7 +85,7 @@ namespace RhinoMeshTables.Core.MeshElements
             return GetEdgeIndices(indices.FirstIndex).Intersect(GetEdgeIndices(indices.SecondIndex)).First();
         }
 
-        public Vector3d GetEdgeDirection(EdgeIndex index)
+        public Vector3 GetEdgeDirection(EdgeIndex index)
         {
             var edge = GetEdge(index);
             return GetVertex(edge.VertexIndices[1]).Position - GetVertex(edge.VertexIndices[0]).Position;
@@ -208,8 +209,8 @@ namespace RhinoMeshTables.Core.MeshElements
 
         #region Normals getters
 
-        public Vector3d GetNormal(FaceIndex index) => _normals[index.Value];
-        public Vector3d GetNormal(int index) => _normals[index];
+        public Vector3 GetNormal(FaceIndex index) => _normals[index.Value];
+        public Vector3 GetNormal(int index) => _normals[index];
 
         #endregion
     }

@@ -8,8 +8,8 @@
     <ProjectGuid>{7D6475E1-3255-4182-8F36-02E8D66E8F1F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RhinoMeshTables</RootNamespace>
-    <AssemblyName>RhinoMeshTables</AssemblyName>
+    <RootNamespace>MeshTables</RootNamespace>
+    <AssemblyName>MeshTables</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -37,23 +37,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="RhinoCommon">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Rhino 6\System\rhinocommon.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Eto">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Rhino 6\System\Eto.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhino.UI">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Rhino 6\System\Rhino.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Math\Vector3.cs" />
     <Compile Include="Core\MeshElements\Edge.cs" />
     <Compile Include="Core\MeshElements\Face.cs" />
     <Compile Include="Core\Indices\Index.cs" />
@@ -70,13 +56,9 @@
     <Compile Include="Core\Tables\IMeshExtractor.cs" />
     <Compile Include="Core\Tables\TableBase.cs" />
     <Compile Include="Core\Tables\TableFactory.cs" />
-    <Compile Include="RhinoMeshTablesCommand.cs" />
-    <Compile Include="RhinoMeshTablesPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="EmbeddedResources\plugin-utility.ico" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -86,7 +68,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).rhp"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

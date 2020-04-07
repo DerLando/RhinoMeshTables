@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Rhino.Geometry;
 using RhinoMeshTables.Core.MeshElements;
 
 namespace RhinoMeshTables.Core.Tables

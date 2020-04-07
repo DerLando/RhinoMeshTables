@@ -40,7 +40,7 @@ namespace RhinoMeshTablesIO
             var vertices = new Vertex[Mesh.TopologyVertices.Count];
             for (int i = 0; i < Mesh.TopologyVertices.Count; i++)
             {
-                vertices[i] = new Vertex(Mesh.TopologyVertices[i]);
+                vertices[i] = new Vertex(Mesh.TopologyVertices[i].ToVector3());
             }
 
             return vertices;

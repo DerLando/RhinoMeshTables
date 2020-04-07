@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
+using RhinoMeshTables.Core.Math;
 
 namespace MeshTables.Tests
 {
@@ -42,7 +43,7 @@ namespace MeshTables.Tests
             return mesh;
         }
 
-        public static bool IsOrthogonal(Vector3d vec)
+        public static bool IsOrthogonal(Vector3 vec)
         {
             if (vec.X == 0 && vec.Y == 0) return true;
             if (vec.Y == 0 && vec.Z == 0) return true;

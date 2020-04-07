@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Rhino.Geometry;
+using RhinoMeshTables.Core.Math;
 
 namespace RhinoMeshTables.Core.MeshElements
 {
     public readonly struct Vertex
     {
-        public readonly Point3d Position;
+        public readonly Vector3 Position;
 
-        public Vertex(Point3d position)
+        public Vertex(Vector3 position)
         {
             Position = position;
         }

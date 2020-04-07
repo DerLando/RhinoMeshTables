@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rhino.Geometry;
+﻿using RhinoMeshTables.Core.Math;
 
 namespace RhinoMeshTables.Core.MeshElements
 {
@@ -12,27 +7,28 @@ namespace RhinoMeshTables.Core.MeshElements
         public readonly double Min;
         public readonly double Max;
 
-        public FaceAngle(Vector3d f1Normal, Vector3d f2Normal, Vector3d sharedEdgeNormal)
+        public FaceAngle(Vector3 f1Normal, Vector3 f2Normal, Vector3 sharedEdgeNormal)
         {
-            var plane = new Plane(Point3d.Origin, sharedEdgeNormal);
-            var cp = Vector3d.CrossProduct(f1Normal, f2Normal);
-            if(cp * sharedEdgeNormal < 0) plane.Flip();
+            var cp = Vector3.CrossProduct(f1Normal, f2Normal);
+            if (cp * sharedEdgeNormal < 0) sharedEdgeNormal = -sharedEdgeNormal;
 
-            var angle = Vector3d.VectorAngle(f1Normal, f2Normal, plane);
+            var angle = Vector3.VectorAngle(f1Normal, f2Normal, sharedEdgeNormal);
             CalculateMinMax(angle, out Min, out Max);
         }
 
         private static void CalculateMinMax(double angle, out double min, out double max)
         {
-            if (angle <= Math.PI)
+            // angle is in the range of -pi to pi, we want it to be between 0 and 2pi
+            angle += System.Math.PI;
+            if (angle <= System.Math.PI)
             {
                 min = angle;
-                max = 2 * Math.PI - angle;
+                max = 2 * System.Math.PI - angle;
             }
 
             else
             {
-                min = 2 * Math.PI - angle;
+                min = 2 * System.Math.PI - angle;
                 max = angle;
             }
         }

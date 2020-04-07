@@ -7,6 +7,7 @@ using MeshTables.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Geometry;
 using RhinoMeshTables.Core.Indices;
+using RhinoMeshTables.Core.Math;
 using RhinoMeshTables.Core.MeshElements;
 using RhinoMeshTablesIO;
 
@@ -73,7 +74,7 @@ namespace RhinoPluginTests
             var cubeConnectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(cube));
 
             // Assert
-            Assert.AreEqual(Vector3d.ZAxis, normal);
+            Assert.AreEqual(new Vector3(0, 0, 1), normal);
             for (int i = 0; i < 6; i++)
             {
                 var fNormal = cubeConnectivity.GetNormal(i);
