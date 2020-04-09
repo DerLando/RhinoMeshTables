@@ -1,4 +1,6 @@
-﻿using MeshTableLibrary.Core.Indices;
+﻿using System;
+using System.IO;
+using MeshTableLibrary.Core.Indices;
 using MeshTableLibrary.Core.Math;
 using MeshTableLibrary.Core.MeshElements;
 using MeshTables.Tests;
@@ -29,16 +31,35 @@ namespace RhinoPluginTests
         public void TestFaceAngleTypes()
         {
             // Arrange
-            var testMesh = Helpers.Cube();
+            var testMesh = Helpers.ImportFrom3dm("test_FaceAngleType.3dm");
             var connectivity = new MeshConnectivity<Mesh>(new RhinoMeshExtractor(testMesh));
+            var hill = 0;
+            var valley = 0;
+            var saddle = 0;
 
             // Act
-            
-            // Assert
             foreach (var facePair in connectivity.GetFacePairs())
             {
-                Assert.AreEqual(FacePairAngleType.Hill, facePair.AngleType);
+                switch (facePair.AngleType)
+                {
+                    case FacePairAngleType.Hill:
+                        hill += 1;
+                        break;
+                    case FacePairAngleType.Saddle:
+                        saddle += 1;
+                        break;
+                    case FacePairAngleType.Valley:
+                        valley += 1;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+            
+            // Assert
+            Assert.AreEqual(5, hill);
+            Assert.AreEqual(2, valley);
+            Assert.AreEqual(1, saddle);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MeshTableLibrary.Core.Math;
+using Rhino.FileIO;
 using Rhino.Geometry;
 
 namespace MeshTables.Tests
@@ -49,6 +51,19 @@ namespace MeshTables.Tests
             if (vec.Y == 0 && vec.Z == 0) return true;
             if (vec.Z == 0 && vec.X == 0) return true;
             return false;
+        }
+
+        private static string TEST_FILE_PATH = "..\\..\\..\\TestFiles\\";
+
+        public static Mesh ImportFrom3dm(string fileName)
+        {
+            var file = File3dm.Read(Path.Combine(TEST_FILE_PATH, fileName), File3dm.TableTypeFilter.ObjectTable, File3dm.ObjectTypeFilter.Mesh);
+            foreach (var fileObject in file.Objects)
+            {
+                if (fileObject.Geometry is Mesh mesh) return mesh;
+            }
+
+            return null;
         }
     }
 }

@@ -40,13 +40,13 @@ namespace MeshTableLibrary.Core.MeshElements
 
             var dist = firstCentroid.DistanceToSquared(secondCentroid);
 
-            firstCentroid += (firstNormal * dist);
-            secondCentroid += (secondNormal * dist);
+            firstCentroid += firstNormal;
+            secondCentroid += secondNormal;
 
             var newDist = firstCentroid.DistanceToSquared(secondCentroid);
 
             if (dist < newDist) return FacePairAngleType.Hill;
-            if (dist == newDist) return FacePairAngleType.Saddle;
+            if (System.Math.Abs(dist - newDist) < 0.001) return FacePairAngleType.Saddle;
             if (dist > newDist) return FacePairAngleType.Valley;
 
             return FacePairAngleType.Saddle;

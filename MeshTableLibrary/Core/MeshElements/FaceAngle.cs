@@ -19,8 +19,21 @@ namespace MeshTableLibrary.Core.MeshElements
         private static void CalculateMinMax(double angle, out double min, out double max)
         {
             // angle is in the range of -pi to pi, we want it to be between 0 and 2pi
-            angle += System.Math.PI;
-            if (angle <= System.Math.PI)
+            //angle += System.Math.PI;
+            //if (angle <= System.Math.PI)
+            //{
+            //    min = angle;
+            //    max = 2 * System.Math.PI - angle;
+            //}
+
+            //else
+            //{
+            //    min = 2 * System.Math.PI - angle;
+            //    max = angle;
+            //}
+
+            // angle is in the range of 0 to pi
+            if (angle <= System.Math.PI / 2.0)
             {
                 min = angle;
                 max = 2 * System.Math.PI - angle;

@@ -72,8 +72,16 @@
 
         public static double VectorAngle(in Vector3 a, in Vector3 b, in Vector3 n)
         {
+            var aNorm = a.AsNormalized();
+            var bNorm = b.AsNormalized();
+
+            if (aNorm.Equals(bNorm)) return 0;
+
             //https://stackoverflow.com/a/33920320
-            return System.Math.Atan2((CrossProduct(b, a) * n), b * a);
+            //return System.Math.Atan2(CrossProduct(bNorm, aNorm) * n.AsNormalized(), bNorm * aNorm);
+
+            // cos(a) = a*b / (len(a)*len(b))
+            return System.Math.Acos(aNorm * bNorm);
         }
 
         #endregion
