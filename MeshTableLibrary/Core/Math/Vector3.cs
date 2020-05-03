@@ -96,7 +96,8 @@
         private static readonly Vector3 _zero = new Vector3(0, 0, 0);
 
         /// <summary>
-        /// A static reference to the zero vector
+        /// A static reference to the zero vector,
+        /// if stored as a ref readonly var, this will not be copied
         /// </summary>
         /// <returns></returns>
         public static ref readonly Vector3 Zero => ref _zero;
