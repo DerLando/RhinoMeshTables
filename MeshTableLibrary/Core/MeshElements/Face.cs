@@ -4,8 +4,14 @@ using MeshTableLibrary.Core.Indices;
 
 namespace MeshTableLibrary.Core.MeshElements
 {
+    /// <summary>
+    /// A struct representation of a Mesh face
+    /// </summary>
     public readonly struct Face
     {
+        /// <summary>
+        /// The vertex indices of vertices belonging to this face
+        /// </summary>
         public readonly VertexIndex[] VertexIndices;
 
         public Face(IEnumerable<uint> indices)

@@ -2,9 +2,19 @@
 
 namespace MeshTableLibrary.Core.MeshElements
 {
+    /// <summary>
+    /// A data struct containing information about the angle between two faces
+    /// </summary>
     public readonly struct FaceAngle
     {
+        /// <summary>
+        /// The minimum angle between the two faces, between 0 and Pi
+        /// </summary>
         public readonly double Min;
+
+        /// <summary>
+        /// The maximum (reflex) angle between the to faces, is 2*Pi - Min
+        /// </summary>
         public readonly double Max;
 
         public FaceAngle(Vector3 f1Normal, Vector3 f2Normal, Vector3 sharedEdgeNormal)
