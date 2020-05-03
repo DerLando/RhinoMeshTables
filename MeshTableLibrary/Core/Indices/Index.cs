@@ -52,6 +52,10 @@ namespace MeshTableLibrary.Core.Indices
         }
     }
 
+    /// <summary>
+    /// IEqualityComparer implementation, to determine equality of IndexPairs
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     class IndexPairEqualityComparer<T> : IEqualityComparer<IndexPair<T>>
     {
         public bool Equals(IndexPair<T> x, IndexPair<T> y)
@@ -65,8 +69,14 @@ namespace MeshTableLibrary.Core.Indices
         }
     }
 
+    /// <summary>
+    /// An index data struct storing a reference to a Face
+    /// </summary>
     public readonly struct FaceIndex : IValueIndex
     {
+        /// <summary>
+        /// The index value
+        /// </summary>
         public readonly uint Value;
 
         public FaceIndex(uint value)
@@ -75,6 +85,9 @@ namespace MeshTableLibrary.Core.Indices
         }
     }
 
+    /// <summary>
+    /// An index data struct storing a reference to a Vertex
+    /// </summary>
     public readonly struct VertexIndex : IEquatable<VertexIndex>, IValueIndex
     {
         public readonly uint Value;
@@ -101,6 +114,9 @@ namespace MeshTableLibrary.Core.Indices
         }
     }
 
+    /// <summary>
+    /// An index data struct storing a reference to an Edge
+    /// </summary>
     public readonly struct EdgeIndex : IValueIndex
     {
         public readonly uint Value;

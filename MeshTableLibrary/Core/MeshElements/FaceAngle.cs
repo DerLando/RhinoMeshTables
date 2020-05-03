@@ -33,17 +33,20 @@ namespace MeshTableLibrary.Core.MeshElements
             //}
 
             // angle is in the range of 0 to pi
-            if (angle <= System.Math.PI / 2.0)
-            {
-                min = angle;
-                max = 2 * System.Math.PI - angle;
-            }
+            //if (angle <= System.Math.PI / 2.0)
+            //{
+            //    min = angle;
+            //    max = 2 * System.Math.PI - angle;
+            //}
 
-            else
-            {
-                min = 2 * System.Math.PI - angle;
-                max = angle;
-            }
+            //else
+            //{
+            //    min = 2 * System.Math.PI - angle;
+            //    max = angle;
+            //}
+
+            min = angle;
+            max = 2 * System.Math.PI - angle;
         }
     }
 }
