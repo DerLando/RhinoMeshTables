@@ -24,7 +24,7 @@ namespace RhinoPluginTests
             var centroid = connectivity.GetFaceCentroid(new FaceIndex(0));
 
             // Assert
-            Assert.AreEqual(Vector3.Zero(), centroid);
+            Assert.AreEqual(Vector3.Zero, centroid);
         }
 
         [TestMethod]

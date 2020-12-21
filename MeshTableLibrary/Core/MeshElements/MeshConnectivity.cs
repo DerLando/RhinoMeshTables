@@ -169,6 +169,11 @@ namespace MeshTableLibrary.Core.MeshElements
         /// <returns></returns>
         public IEnumerable<Vertex> GetVertices() => _vertices.AsEnumerable();
 
+        public IEnumerable<VertexIndex> GetAllVertexIndices() => 
+            Enumerable
+                .Range(0, VertexCount)
+                .Select(n => new VertexIndex((uint)n));
+
         /// <summary>
         /// Returns the indices corresponding to the vertices neighboring
         /// the queried vertex index.
